@@ -1,0 +1,4 @@
+customtkinter
+mediapipe
+cvzone
+numpy
