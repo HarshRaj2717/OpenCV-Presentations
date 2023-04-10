@@ -2,50 +2,34 @@ import os
 import customtkinter
 import presenter
 
-
 # Variables
-filename = ""
+Slide_directory_name = ""
 
 
 def choose_ppt_file() -> None:
-    global filename
+    global Slide_directory_name
     global file_selection_label
 
-    filetypes = (
-        ('temp', '*.*'),
-        ('ppt', '*.ppt'),
-        ('pptx', '*.pptx')
-        # TODO try this out for libreoffice's default ppt format
-        # TODO remove the temp entry
-    )
-
-    filename = customtkinter.filedialog.askopenfilename(
+    Slide_directory_name = customtkinter.filedialog.askdirectory(
         title='Open a file',
-        initialdir=os.curdir,
-        filetypes=filetypes
+        initialdir=os.curdir
     )
 
-    if len(filename) == 0:
-        filename = ""
+    if len(Slide_directory_name) == 0:
+        Slide_directory_name = ""
     else:
         file_selection_label.configure(
-            text="✅ PPT file selected.", text_color="green")
-
-
-def ppt_to_images() -> None:
-    # TODO Convert the PPT file into images into a ./temp folder so that it can be later used in presenter.py
-    ...
+            text="✅ Directory of slides selected.", text_color="green")
 
 
 def presentation_starter() -> None:
     global file_selection_label
 
-    if filename == "":
+    if Slide_directory_name == "":
         file_selection_label.configure(
-            text="❌ PPT file not selected!", text_color="red")
+            text="❌ Directory of slides not selected!", text_color="red")
     else:
-        ppt_to_images()
-        presenter.start_presenting()
+        presenter.start_presenting(Slide_directory_name)
 
 
 def main():
@@ -73,7 +57,7 @@ frame.pack(padx=20, pady=20, fill="both", expand=True)
 
 # Adding button to choose the ppt file
 file_open_button = customtkinter.CTkButton(
-    master=frame, text="Choose ppt file", command=choose_ppt_file)
+    master=frame, text="Choose slides directory", command=choose_ppt_file)
 
 # Adding a file selection label
 file_selection_label = customtkinter.CTkLabel(
