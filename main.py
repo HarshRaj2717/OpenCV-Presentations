@@ -3,33 +3,40 @@ import customtkinter
 import presenter
 
 # Variables
-Slide_directory_name = ""
+slide_directory_name = ""
 
 
 def choose_ppt_file() -> None:
-    global Slide_directory_name
+    global slide_directory_name
     global file_selection_label
 
-    Slide_directory_name = customtkinter.filedialog.askdirectory(
+    slide_directory_name = customtkinter.filedialog.askdirectory(
         title='Open a file',
         initialdir=os.curdir
     )
 
-    if len(Slide_directory_name) == 0:
-        Slide_directory_name = ""
+    if len(slide_directory_name) == 0:
+        slide_directory_name = ""
     else:
         file_selection_label.configure(
             text="✅ Directory of slides selected.", text_color="green")
 
 
+def prepare_slides() -> None:
+    # TODO Get slides from slide_directory into a local temp folder in root
+    # TODO Resize those images to 1280x720px
+    pass
+
+
 def presentation_starter() -> None:
     global file_selection_label
 
-    if Slide_directory_name == "":
+    if slide_directory_name == "":
         file_selection_label.configure(
             text="❌ Directory of slides not selected!", text_color="red")
     else:
-        presenter.start_presenting(Slide_directory_name)
+        prepare_slides()
+        presenter.start_presenting(slide_directory_name)
 
 
 def main():

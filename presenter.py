@@ -133,7 +133,8 @@ def start_presenting(Slide_directory_name: str) -> None:
 
 
 def main():
-    start_presenting("sample_slides")
+    Slide_directory_name = input("Enter slide directory path : ")
+    start_presenting(Slide_directory_name)
 
 
 if __name__ == "__main__":
