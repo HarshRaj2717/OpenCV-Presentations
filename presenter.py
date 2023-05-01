@@ -4,7 +4,7 @@ import numpy as np
 from cvzone.HandTrackingModule import HandDetector
 
 
-def start_presenting(Slide_directory_name: str) -> None:
+def start_presenting(slide_directory_name: str) -> None:
     # Local Variables
     slides = []
     cur_slide = 0
@@ -14,10 +14,10 @@ def start_presenting(Slide_directory_name: str) -> None:
 
     # Collecting the slides in the slide directory
     # and sorting based on length also to prevent "10.*" coming after "1.*" instead of "2.*"
-    slides = sorted(os.listdir(Slide_directory_name), key=len)
+    slides = sorted(os.listdir(slide_directory_name), key=len)
     # Saving all slides with thier names
     slides = list(
-        map(os.path.join, [Slide_directory_name] * len(slides), slides))
+        map(os.path.join, [slide_directory_name] * len(slides), slides))
     # Keeping only files with a known image extension
     slides = [_ for _ in slides if _.split(
         '.')[-1] in ['jpeg', 'png', 'jpg', 'svg', 'webp']]
