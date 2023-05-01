@@ -16,7 +16,9 @@ pip install -r requirements.txt
 python3 main.py
 ```
 
-- Now you can use any of the [supported file types]() and [gestures](#gestures) to give your presentation.
+- Before passing in the slide directory - make sure that it contains all the slides are named 1,2,3... in order of their appearance in the presentation and are of one of the [supported file types](#supported-file-types). You can look in `sample_slides` folder to get an example of the naming convention used.
+
+- Now you can use any of the [supported file types](#supported-file-types) and [gestures](#gestures) to give your presentation.
 
 ## Gestures
 
