@@ -2,3 +2,4 @@ customtkinter
 mediapipe
 cvzone
 numpy
+Pillow

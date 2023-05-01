@@ -15,7 +15,7 @@ def start_presenting(slide_directory_name: str) -> None:
     # Collecting the slides in the slide directory
     # and sorting based on length also to prevent "10.*" coming after "1.*" instead of "2.*"
     slides = sorted(os.listdir(slide_directory_name), key=len)
-    # Saving all slides with thier names
+    # Saving all slides with thier names and paths
     slides = list(
         map(os.path.join, [slide_directory_name] * len(slides), slides))
     # Keeping only files with a known image extension

@@ -1,6 +1,7 @@
 import os
 import customtkinter
 import presenter
+from resize_and_save_slides import resize_and_save_slides
 
 # Variables
 slide_directory_name = ""
@@ -22,10 +23,48 @@ def choose_ppt_file() -> None:
             text="✅ Directory of slides selected.", text_color="green")
 
 
-def prepare_slides() -> None:
-    # TODO Get slides from slide_directory into a local temp folder in root
-    # TODO Resize those images to 1280x720px
-    pass
+def prepare_temp_slides() -> bool:
+    # Gathering path to all slides in slide_directory_name directory
+    slides = os.listdir(slide_directory_name)
+    # Saving all slides with thier names and paths
+    slides = list(
+        map(os.path.join, [slide_directory_name] * len(slides), slides))
+    # Keeping only files with a known image extension
+    slides = [_ for _ in slides if _.split(
+        '.')[-1] in ['jpeg', 'png', 'jpg', 'svg', 'webp']]
+    if len(slides) == 0:
+        # Return false (no success) if there are no slide images in the provided slide_directory_name
+        return False
+
+    # Creating a temp directory in root folder
+    try:
+        os.mkdir(os.path.join(os.curdir, "temp"))
+    except Exception as error:
+        print(error)
+
+    # Resize all slides to 1280x720 pixels
+    # and save into the temp directory
+    resize_and_save_slides(slides)
+
+    # Returning True to specify success
+    return True
+
+
+def delete_temp_slides() -> None:
+    # Delete temp directory in root folder
+    try:
+        # Gathering path to all slides in slide_directory_name directory
+        slides = os.listdir(os.path.join(os.curdir, "temp"))
+        # Saving all slides with thier names and paths
+        slides = list(
+            map(os.path.join, [os.path.join(os.curdir, "temp")] * len(slides), slides))
+        # Deleting each slide inside temp directory
+        for slide in slides:
+            os.remove(slide)
+        # Deleting temp directory
+        os.rmdir(os.path.join(os.curdir, "temp"))
+    except Exception as error:
+        print(error)
 
 
 def presentation_starter() -> None:
@@ -35,8 +74,10 @@ def presentation_starter() -> None:
         file_selection_label.configure(
             text="❌ Directory of slides not selected!", text_color="red")
     else:
-        prepare_slides()
-        presenter.start_presenting(slide_directory_name)
+        success = prepare_temp_slides()
+        if success:
+            presenter.start_presenting("temp")
+        delete_temp_slides()
 
 
 def main():
