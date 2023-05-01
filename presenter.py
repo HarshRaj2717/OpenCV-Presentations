@@ -58,9 +58,9 @@ def start_presenting(Slide_directory_name: str) -> None:
 
             # Finding index finger and constraining it to half of the slides
             index_finger_x = int(np.interp(landmarks_list[8][0], [int(
-                cur_video_img.shape[1]) // 2, int(cur_video_img.shape[1])], [0, int(cur_video_img.shape[1])]))
+                cur_video_img.shape[1]) // 2, int(cur_video_img.shape[1])], [0, int(cur_slide_image.shape[1])]))
             index_finger_y = int(np.interp(landmarks_list[8][1], [
-                                 50, int(cur_video_img.shape[0])-50], [0, int(cur_video_img.shape[0])]))
+                                 150, int(cur_video_img.shape[0])-150], [0, int(cur_slide_image.shape[0])]))
 
             # Finding currently up fingers
             fingers = hand_detector.fingersUp(hands)
