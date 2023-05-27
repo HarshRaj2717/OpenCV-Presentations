@@ -42,7 +42,7 @@ def start_presenting(slide_directory_name: str) -> None:
 
         # Drawing a gesture threshold line
         cv2.line(cur_video_img, (0, threshold_height := int(cur_video_img.shape[0] / 2)),
-                 (int(cur_video_img.shape[1]), int(threshold_height)), (0, 0, 255), 15)
+                 (int(cur_video_img.shape[1]), int(threshold_height)), (0, 0, 255), 5)
 
         # Finding number of fingers up
         if hands:
